@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Document</title>
+</head>
+<body>
+  <h3 style="text-align: center;">Add Dish</h3>
+  <form method="POST">
+    {% csrf_token %}
+    <div style="margin-left: 450px;">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="name">Name</label>
+          <input type="text" class="form-control" id="name" placeholder="Dish name" name="name">
+        </div>
+        
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="price">Price</label>
+          <input type="number" class="form-control" id="price" placeholder="Price" name="price">
+        </div>
+      </div>
+      
+    
+      <button type="submit" class="btn btn-primary" style="margin-left: 200px;">ADD</button>
+    </div>
+  </form>
+
+
+  <!-- <form method="POST">
+    {% csrf_token %}
+    <label id="name">Name:</label>
+    <input type="text" id="name" name="name">
+
+    <label id="price">Price:</label>
+    <input type="number" id="price" name="price">
+
+    <input type="submit" value="Add">
+  </form> -->
+  
+</body>
+</html>

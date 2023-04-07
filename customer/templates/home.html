@@ -1,0 +1,150 @@
+{% extends 'main.html' %}
+{% load static %}
+
+{% block content %}
+	<section id="home">
+		<h1 align="center" class="h-primary">Welcome to Delicious.com</h1>
+		{% if customer.is_login %}
+			<h3 align="right">{{customer}}</h3><br>
+			<div align="right"><form action="{% url 'customer_logout' %}" method="post">
+			{% csrf_token %}
+			<button value={{customer.id}} name = 'try' class="btn btn-outline-success add-btn" data-action="add" type="submit">Logout</button>
+		</form> </div>
+		{% else%}
+			<h3 align="right"><button class="btn btn-outline-success add-btn"><a href="{% url 'customer_login' %}">Login</a></button></h3>
+			<h3 align="right"><button class="btn btn-outline-success add-btn"><a href="{% url 'customer_signup' %}">Sign_Up</a></button></h3>
+		{% endif %}
+		<img src="{% static 'bg1.jpg' %}" height = "600px" top = "0px" left = "0px" width = "100%">
+    </section>
+		<br><br>
+		<div>
+			<h1>Restaurants</h1>
+			<!-- {% if message %}
+				<h1>{{message}}</h1>
+
+			{% endif %} -->
+
+			<div style="display: none;" id="latitude">lati</div>
+			<div style="display: none;" id="longitude">longi</div>
+
+
+			
+			{% for restaur in restaurant %}
+
+				
+					<div id="{{restaur.id}}" >
+						<h4>{{restaur.name}}</h4>
+						<form action="{% url 'menu' %}" method="post">
+							{% csrf_token %}
+							<!-- <input type="submit" value="submit" name={{i.name}} class="btn btn-outline-secondary add-btn"> -->
+							<button value={{restaur.id}} name = 'try' class="btn btn-outline-success add-btn" data-action="add" type="submit">Menu</button>
+						</form> 
+						<hr>
+					</div>
+				
+			{% endfor %}
+		</div>
+	<script src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript">
+		
+		
+		function getlocation(){
+			//console.log("getlocation")
+      if (navigator.geolocation)
+      {
+				//console.log("run")
+        navigator.geolocation.getCurrentPosition(showPosition);
+      }
+      else
+      {
+        x.innerHTML = "not supporting";
+      }
+    }
+
+		function showPosition(position){
+			//console.log("showPosition")
+			//console.log(position.coords.latitude)
+			document.getElementById("latitude").innerHTML=position.coords.latitude
+			document.getElementById("longitude").innerHTML=position.coords.longitude
+
+			//console.log(document.getElementById("latitude").innerHTML)
+			do_stuff(position.coords.latitude,position.coords.longitude);
+			
+     
+    }
+
+		getlocation()
+
+
+		function do_stuff(){
+			var resturants = JSON.parse("{{data|escapejs}}");
+			resturants=JSON.parse(resturants)
+			
+			const cust_lati=document.getElementById("latitude").innerHTML;
+			const cust_long=document.getElementById("longitude").innerHTML;
+
+			
+
+			console.log("customer's latitude: "+cust_lati)
+			console.log("customer's longitude: "+cust_long)
+
+
+
+			for(var i=0;resturants.length;i++){
+				const id=resturants[i].pk
+				const rest_lati=resturants[i].fields['latitude']
+				const rest_long=resturants[i].fields['longitude']
+				
+
+				var div=document.getElementById(""+id);
+				//console.log(div)
+				if(within_range(cust_lati,cust_long,rest_lati,rest_long,id)==false){
+					div.style.display="none"
+				}
+				
+			}
+
+		}
+
+		function within_range(cust_lati,cust_long,rest_lati,rest_long,id){
+			const d=distance(cust_lati,rest_lati,cust_long,rest_long);
+			console.log("displacement of restaurant "+id+" is: "+d+"Km");
+			if(d<=4000)
+			return true;
+			else
+			return false;
+		}
+
+		function distance(lat1,lat2, lon1, lon2)
+    {
+   
+			// The math module contains a function
+			// named toRadians which converts from
+			// degrees to radians.
+			lon1 =  lon1 * Math.PI / 180;
+			lon2 = lon2 * Math.PI / 180;
+			lat1 = lat1 * Math.PI / 180;
+			lat2 = lat2 * Math.PI / 180;
+	
+			// Haversine formula
+			let dlon = lon2 - lon1;
+			let dlat = lat2 - lat1;
+			let a = Math.pow(Math.sin(dlat / 2), 2)
+								+ Math.cos(lat1) * Math.cos(lat2)
+								* Math.pow(Math.sin(dlon / 2),2);
+							
+			let c = 2 * Math.asin(Math.sqrt(a));
+	
+			// Radius of earth in kilometers. Use 3956
+			// for miles
+			let r = 6371;
+	
+			// calculate the result
+			return Math.abs(c * r);
+    }
+
+
+		
+	</script>
+
+{% endblock content %}

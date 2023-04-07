@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <h1 style="text-align: center;">Edit Resturant Details</h1>
+
+  <form method="POST" style="margin:30px">
+    {% csrf_token %}
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" value="{{resturant.name}}" name="name">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" id="address" value="{{resturant.address}}" name="address">
+      </div>
+    </div>
+    <div>
+      <strong>Location Details</strong>(Please see the Below note for finding latitude and longitde of your restaurant location)
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="latitude">Latitude</label>
+        <input type="number"  step="any" class="form-control" id="latitude" value="{{resturant.latitude}}" name="latitude">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="longitude">Longitude</label>
+        <input type="number" step="any" class="form-control" id="longitude" value="{{resturant.longitude}}" name="longitude">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="opening_time">Opening Time</label>
+        <input type="time" class="form-control" id="opening_time" value="{{resturant.opening_time}}" name="opening_time">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="closing_time">Closing Time</label>
+        <input type="time" class="form-control" id="closing_time" value="{{resturant.closing_time}}"name="closing_time">
+      </div>
+      <div class="form-group col-md-4">
+        <label for="bill_limit">Bill Limit</label>
+        <input type="number" class="form-control" id="bill_limit" value="{{resturant.bill_limit}}"name="bill_limit">
+      </div>
+    </div>
+   
+    <button type="submit" class="btn btn-primary" style="margin-left: 600px;">Save</button>
+
+    <div>
+      <h6>Note:-</h6>
+      <p>Latitude and longitude of a place:-</p>
+      <ul>
+        <li>open Google Maps in your computer (Link:-<a href="https://www.google.com/maps">Google Map</a>)</li>
+        <li>type the address of your resaturant location</li>
+        <li>Right-click the place or area on the map</li>
+        <li>To copy the coordinates automatically, select the latitude and longitude.</li>
+      </ul>
+    </div>
+  </form>
+
+  
+
+
+  <!-- <form method="POST">
+    {% csrf_token %}
+    <label for="name"> Resturant Name:</label>
+    <input type="text" id="name" name="name"><br/><br/>
+
+    <label for="address"> Address:</label>
+    <input type="text" id="address" name="address"><br/><br/>
+
+    <label for="location"> Location:</label><br/>
+    <label for="latitude"> Latitude:</label>
+    <input type="number" id="latitude" name="latitude">
+    <label for="longitude"> Longitude:</label>
+    <input type="number" id="longitude" name="longitude"><br/><br/>
+
+    <label for="opening_time"> Opening Time:</label>
+    <input type="time" id="opening_time" name="opening_time"><br/><br/>
+
+    <label for="closing_time"> Closing Time:</label>
+    <input type="time" id="closing_time" name="closing_time"><br/><br/>
+
+    <label for="bill_limit"> Bill Limit:</label>
+    <input type="number" id="bill_limit" name="bill_limit"><br/><br/>
+
+    <input type="submit" value="Edit">
+  </form> -->
+  
+</body>
+</html>

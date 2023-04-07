@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<title>menu</title>
+</head>
+<body>
+	<h1>MENU</h1><br>
+
+	<form action="{% url 'cart' %}" method="post">
+			{% csrf_token %}
+			<!-- <input type="submit" value="submit" name={{i.name}} class="btn btn-outline-secondary add-btn"> -->
+			<button value={{rest_id}} name = 'restid' class="btn btn-outline-secondary add-btn" data-action="add" type="submit">Cart</button>
+			<p id="cart-total">No. of dishes in Cart:- {{order.get_cart_items}}</p>
+	</form> 
+	<h4><a href="{% url 'home' id=customer.id %}">Back</a></h4>
+	{% for i in dish %}
+		<h4>{{i.name}}</h4>
+		<!-- {{i.price}} -->
+		<div class="col-lg-4">
+			<div class="box-element product">
+			<hr>
+			<form action="{% url 'add' %}" method="post">
+				{% csrf_token %}
+				<!-- <input type="submit" value="submit" name={{i.name}} class="btn btn-outline-secondary add-btn"> -->
+				<button value={{i.id}} name = 'try' class="btn btn-outline-secondary add-btn" data-action="add" type = "submit">Add to Cart</button>
+			</form> 
+			<h2>
+			<h4 style="display: inline-block; float: right">{{i.price}}Rs</h4>
+ 
+			</div>
+		</div>
+	{% endfor %}
+</body>
+</html>

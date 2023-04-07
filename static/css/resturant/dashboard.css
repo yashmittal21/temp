@@ -1,0 +1,36 @@
+.navbar{
+  margin-bottom: 10px;
+  /* text-align: center; */
+
+}
+
+.container{
+  margin:5px;
+  margin-left: 200px;
+  font-size: larger;
+}
+
+.row{
+  margin:5px;
+}
+
+#welcome
+{
+ margin-left: 600px;
+}
+
+#buttons{
+  margin-left: 470px;
+}
+
+#btn1{
+  margin:10px;
+}
+
+#btn2{
+  margin:30px;
+}
+
+a{
+  text-decoration:wavy;
+}

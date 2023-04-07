@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h3>Orders:-</h3>
+  <h6>Recieved Order</h6>
+  <div>
+    <ul>
+      {% for order in recieved_order%}
+        {% for dish in order.dishes %}
+          <div>
+            <li>name:{{dish.name}}</li>
+            <li>price:{{dish.price}}</li>
+            <li>quantity:{{dish.quantity}}</li>
+          </div>
+        {% endfor %}
+        <li>Order bill:{{order.bill}}</li>
+        <li>Order id:{{order.id}}</li>
+        <button><a href="accept_order/{{order.id}}">Accept</a></button>
+        <button><a href="reject_order/{{order.id}}">Reject</a></button>
+      {% endfor %}
+    </ul>
+  </div>
+  <div>
+    <ul>
+      {% for order in panding_order%}
+        {% for dish in order.dishes %}
+          <div>
+            <li>name:{{dish.name}}</li>
+            <li>price:{{dish.price}}</li>
+            <li>quantity:{{dish.quantity}}</li>
+          </div>
+        {% endfor %}
+        <li>Order bill:{{order.bill}}</li>
+        <li>Order id:{{order.id}}</li>
+        <button><a href="accept_order/{{order.id}}">Accept</a></button>
+        <button><a href="reject_order/{{order.id}}">Reject</a></button>
+      {% endfor %}
+    </ul>
+  </div>
+  
+</body>
+</html>

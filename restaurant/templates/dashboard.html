@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="{% static 'css/resturant/dashboard.css' %}" rel="stylesheet"/>
+</head>
+<body>
+  <div>
+    <nav class="navbar navbar-light " style="background-color:chocolate">
+      <span class="navbar-brand mb-0 h1" id="welcome">Welcome {{name}}</span>
+    </nav>
+    <!-- <nav class="abc navbar">
+      Welcome {{name}}
+    </nav> -->
+    {% if resturant %}
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h3>Resturant name</h3>
+            <p>{{resturant.name}}</p>
+          </div>
+          <div class="col">
+            <h3>Address</h3>
+            <p>{{resturant.address}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h3>Latitude</h3>
+            <p>{{resturant.latitude}}</p>
+          </div>
+          <div class="col">
+            <h3>Longitude</h3>
+            <p>{{resturant.longitude}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h3>Opening Time</h3>
+            <p>{{resturant.opening_time}}</p>
+          </div>
+          <div class="col">
+            <h3>Closing Time</h3>
+            <p>{{resturant.closing_time}}</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h3>Bill Limit</h3>
+            <p>{{resturant.bill_limit}} Rs.</p>
+          </div>
+        </div>
+        
+
+      </div>
+    {% else %}
+      <button type="button" class="btn btn-primary" style="margin-left: 600px; "><a href="add_resturant/{{id}}" style="color:white">Add resturant</a></button>
+    {% endif%}
+  </div>
+  {% if resturant %}
+  <div class="row"  id="buttons">
+    <span>
+      <button type="button" class="btn btn-primary" id="btn1"><a href="resturant_details/{{id}}" style="color:black">Edit resturant Details</a></button>
+      
+      <button type="button" class="btn btn-warning" id="btn2"><a href="add_dish/{{id}}" style="color:black">Add dish</a></button>
+     
+
+    </span>
+  </div>
+  {% endif %}
+  
+
+  {% if dishes %}
+  <div>
+    <h2 style="margin: 20px;">Menu</h2>
+      <div>
+        {% for dish in dishes %}
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              
+                <div class="col">
+                  <h6>{{dish.name}}</h6>
+                </div>
+                <div class="col">
+                  {{dish.price}} Rs.
+                </div>
+                <div class="col">
+                  <button type="button" class="btn btn-info"><a href="edit_dish/{{dish.id}}" style="color:white">Edit</a></button>
+                </div>
+                <div class="col">
+                  <button type="button" class="btn btn-danger"><a href="remove_dish/{{dish.id}}" style="color:white">Remove</a></button>
+                </div>  
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+  </div>
+  {% endif %}
+
+  
+
+  {% if order %}
+  <h2 style="margin: 20px;">Orders</h2>
+
+    {% if recieved_order %}
+      <h6>Recieved Order</h6>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Order Items</th>
+            <th scope="col">Order Bill</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in recieved_order %}
+          <tr>
+            <th scope="row">{{order.id}}</th>
+            <td>
+              {% for dish in order.dishes %}
+                <p>{{dish.quantity}} {{dish.name}} of {{dish.price}} Rs</p>
+              {% endfor %}
+            </td>
+            <td>{{order.bill}} Rs.</td>
+            <td>
+              <button type="button" class="btn btn-success" ><a href="accept_order/{{order.id}}" style="color:white">Accept</a></button>
+              <button type="button" class="btn btn-danger"><a href="reject_order/{{order.id}}" style="color:white">Reject</a></button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+
+
+    {% if panding_order %}
+      <h6>Pending Order</h6>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Order ID</th>
+            <th scope="col">Order Items</th>
+            <th scope="col">Order Bill</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in panding_order %}
+          <tr>
+            <th scope="row">{{order.id}}</th>
+            <td>
+              {% for dish in order.dishes %}
+                <p>{{dish.quantity}} {{dish.name}} of {{dish.price}} Rs</p>
+              {% endfor %}
+            </td>
+            <td>{{order.bill}} Rs.</td>
+            <td>
+              <button type="button" class="btn btn-success" ><a href="complete_order/{{order.id}}" style="color:white">Complete</a></button>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+
+
+  {% endif %}
+</body>
+</html>
